@@ -1,0 +1,2 @@
+# vrc_chatbox_sender_frombrowser
+vrcのチャットボックスにブラウザからOSCでチャット送るやつ
