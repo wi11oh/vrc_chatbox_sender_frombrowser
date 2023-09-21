@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+    <style>
+        body{
+            background-color: #191919;
+            margin: calc(20px) 0 calc(8vh + 8px) 0;
+        }
+        .navbar{
+            background-color: #313131;
+        }
+        .container-fluid{
+            height: 8vh;
+        }
+        .input-group{
+            margin: 0 4px 0 4px;
+        }
+        #textform::placeholder{
+            text-align: right;
+        }
+        .card{
+            margin: 20px;
+        }
+        .card-footer{
+            background-color: #313131;
+        }
+        #fixedtextbtn{
+            padding: 6px;
+        }
+        #allclearbtn{
+            padding: 6px;
+        }
+        .fixedtextdivhidden{
+            height: 0;
+        }
+        .fixedtextview{
+            animation-duration: 1s;
+        }
+        .fixedbtn{
+            margin: 5px;
+        }
+    </style>
+    <title>chatbox-sender</title>
+</head>
+<body>
+    <!-- 俺、npｍの環境が治ったらelectronで作り直すんだ…！ -->
+    <main class="container">
+        <div id="result">
+            <div class="card">
+                <div class="card-body">
+                    <blockquote class="blockquote mb-0">
+                        <p>DEMO : vrc-chatbox-sender <br><br> VRChat内のchatboxに文字列を送信します</p>
+                        <footer class="blockquote-footer">ここには送信日時が表示されます
+                        </footer>
+                    </blockquote>
+                </div>
+                <div class="card-footer">
+                    <div class="input-group">
+                        <button class="btn btn-outline-light btn-sm delhis" type="button" disabled>履歴を消す</button>
+                        <button class="btn btn-outline-light btn-sm resend" type="button" disabled>再送</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <blockquote class="blockquote mb-0">
+                        <p>使用するには別途 <a href="" download>これ</a> を実行している必要があります</p>
+                        <footer class="blockquote-footer">↑クリックするとダウンロードされます
+                        </footer>
+                    </blockquote>
+                </div>
+                <div class="card-footer">
+                    <div class="input-group">
+                        <button class="btn btn-outline-light btn-sm delhis" type="button" disabled>履歴を消す</button>
+                        <button class="btn btn-outline-light btn-sm resend" type="button" disabled>再送</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <blockquote class="blockquote mb-0">
+                        <p>"履歴を消す"ボタンで特定の送信履歴カードを消去し、"再送"ボタンでそのカードの文字列をVRChatに再送信します</p>
+                        <footer class="blockquote-footer">made by uirou / willoh&nbsp;&nbsp;<a href="https://twitter.com/UirouMachineVRC"><i class="bi bi-twitter"></i></a></footer>
+                    </blockquote>
+                </div>
+                <div class="card-footer">
+                    <div class="input-group">
+                        <button class="btn btn-outline-light btn-sm delhis" type="button" disabled>履歴を消す</button>
+                        <button class="btn btn-outline-light btn-sm resend" type="button" disabled>再送</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <nav class="navbar fixed-bottom">
+            <div class="fixedtextdivhidden d-flex align-items-center overflow-auto" id="flexbtnsvh">
+                <div class="flexbtns">
+                    <button type="button" class="btn btn-outline-light btn-sm fixedbtn">こんにちは</button>
+                    <button type="button" class="btn btn-outline-light btn-sm fixedbtn">こんばんわ</button>
+                    <button type="button" class="btn btn-outline-light btn-sm fixedbtn">シュノーケルでウンコｽﾞｿﾞｿﾞｯ!</button>
+                    <button type="button" class="btn btn-outline-light btn-sm fixedbtn">定型文s</button>
+                    <button type="button" class="btn btn-outline-light btn-sm fixedbtn">定型文s</button>
+                    <button type="button" class="btn btn-outline-light btn-sm fixedbtn">定型文s</button>
+                    <button type="button" class="btn btn-outline-light btn-sm fixedbtn">定型文s</button>
+                    <button type="button" class="btn btn-outline-light btn-sm fixedbtn">定型文s</button>
+                    <button type="button" class="btn btn-outline-light btn-sm fixedbtn">定型文s</button>
+                    <button type="button" class="btn btn-outline-light btn-sm fixedbtn">定型文s</button>
+                    <button type="button" class="btn btn-outline-light btn-sm fixedbtn">定型文s</button>
+                    <button type="button" class="btn btn-outline-light btn-sm fixedbtn">定型文s</button>
+                    <button type="button" class="btn btn-outline-light btn-sm fixedbtn">定型文s</button>
+                    <button type="button" class="btn btn-outline-light btn-sm fixedbtn">定型文s</button>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="input-group">
+                    <button class="btn btn-outline-light" type="button" id="fixedtextbtn">定形文</button>
+                    <button class="btn btn-outline-light" type="button" id="allclearbtn">履歴全消去</button>
+                    <input type="text" class="form-control" id="textform" placeholder="chatboxに送信する文字を入力">
+                    <input type="checkbox" class="btn-check" id="micbtn" autocomplete="off">
+                    <label class="btn btn-outline-danger" for="micbtn"><i class="bi bi-mic-fill"><span id="micbtnlabel">音声入力</span></i></label>
+                </div>
+            </div>
+        </nav>
+    </footer>
+    <!-- <script src="/static/js/main.js"></script> -->
+    <script>
+        const url = new URL(window.location.href)
+        const params = url.searchParams
+        console.log(params.get("localIP"))
+        console.log("あああああああああああああああああ！！！！！！助けて！！！！！！！！！！！")
+        const socket = new WebSocket(`ws://${params.get("localIP")}:41129`)
+        //
+        // 受信
+        //
+        socket.onmessage = (e) => {
+            console.log("受信>>", e.data)
+        }
+        //
+        // 送信 (テキスト)
+        //
+        document.getElementById("textform").addEventListener("keypress", (e) => {
+            const $textFormValue = document.getElementById("textform").value
+            if (e.key === "Enter") {
+                if ($textFormValue) {
+                    document.getElementById("textform").value = ""
+                    const nowtime = new Date().toLocaleString({ timeZone: 'Asia/Tokyo' })
+                    const prevInManin = document.getElementById("result").innerHTML
+                    const insertMain =  `<div class="card"><div class="card-body"><blockquote class="blockquote mb-0"><p>${$textFormValue}</p><footer class="blockquote-footer">${nowtime}</footer></blockquote></div><div class="card-footer"><div class="input-group"><button class="btn btn-outline-light btn-sm delhis" type="button">履歴を消す</button><button class="btn btn-outline-light btn-sm resend" type="button">再送</button></div></div></div>`
+                    document.getElementById("result").innerHTML = insertMain + prevInManin
+                    console.log("sendToVRChatChatbox>>>  " + $textFormValue)
+                    socket.send($textFormValue)
+                    document.getElementById("textform").value = ""
+                    const bottom = document.getElementById("result").scrollHeight
+                    window.scrollTo(0,0)
+                    $$delhisbtns = document.getElementsByClassName("delhis")
+                }
+            }
+            return false
+        })
+        //
+        //履歴を消す
+        //
+        const resultaddlistener = new MutationObserver( () => {
+            $$delhisbtns = document.getElementsByClassName("delhis")
+            for (let i = 0; i < $$delhisbtns.length; i++) {
+                $$delhisbtns[i].addEventListener("click" , (e) => {
+                    e.srcElement.parentNode.parentNode.parentNode.remove()
+                })
+            }
+        });
+        resultaddlistener.observe(document.getElementById("result"), {
+            childList: true
+        })
+        //
+        //再送
+        //
+        const resultaddlistener2 = new MutationObserver( () => {
+            $$resendbtns = document.getElementsByClassName("resend")
+            for (let i = 0; i < $$resendbtns.length; i++) {
+                $$resendbtns[i].addEventListener("click" , (e) => {
+                    $textFormValue = e.srcElement.parentNode.parentNode.parentNode.children[0].children[0].children[0].textContent
+                    const nowtime = new Date().toLocaleString({ timeZone: 'Asia/Tokyo' })
+                    const prevInManin = document.getElementById("result").innerHTML
+                    const insertMain =  `<div class="card"><div class="card-body"><blockquote class="blockquote mb-0"><p>${$textFormValue}</p><footer class="blockquote-footer">${nowtime}</footer></blockquote></div><div class="card-footer"><div class="input-group"><button class="btn btn-outline-light btn-sm delhis" type="button">履歴を消す</button><button class="btn btn-outline-light btn-sm resend" type="button">再送</button></div></div></div>`
+                    document.getElementById("result").innerHTML = insertMain + prevInManin
+                    console.log("sendToVRChatChatbox>>>  " + $textFormValue)
+                    socket.send($textFormValue)
+
+
+
+                })
+            }
+        });
+        resultaddlistener2.observe(document.getElementById("result"), {
+            childList: true
+        })
+        //
+        //クリア
+        //
+        document.getElementById("allclearbtn").addEventListener("click", () => {
+            $parentsdiv = document.getElementById("result")
+            while($parentsdiv.firstChild){
+                $parentsdiv.removeChild($parentsdiv.firstChild);
+            }
+        })
+        //
+        //定型文
+        //
+        document.getElementById("fixedtextbtn").addEventListener("click", () => {
+            $flexbtnsvh = document.getElementById("flexbtnsvh")
+            if ($flexbtnsvh.classList[0] == "fixedtextdivhidden") {
+                $flexbtnsvh.classList.replace("fixedtextdivhidden", "fixedtextview")
+            } else {
+                $flexbtnsvh.classList.replace("fixedtextview", "fixedtextdivhidden")
+            }
+        })
+        const $$fixedbtn = document.getElementsByClassName("fixedbtn")
+        for (let i = 0; i < $$fixedbtn.length; i++) {
+            $$fixedbtn[i].addEventListener("click", (e) => {
+                $textFormValue = e.srcElement.textContent
+                const nowtime = new Date().toLocaleString({ timeZone: 'Asia/Tokyo' })
+                const prevInManin = document.getElementById("result").innerHTML
+                const insertMain =  `<div class="card"><div class="card-body"><blockquote class="blockquote mb-0"><p>${$textFormValue}</p><footer class="blockquote-footer">${nowtime}</footer></blockquote></div><div class="card-footer"><div class="input-group"><button class="btn btn-outline-light btn-sm delhis" type="button">履歴を消す</button><button class="btn btn-outline-light btn-sm resend" type="button">再送</button></div></div></div>`
+                document.getElementById("result").innerHTML = insertMain + prevInManin
+                console.log("sendToVRChatChatbox>>>  " + e.srcElement.textContent)
+                socket.send(e.srcElement.textContent)
+            })
+        }
+        //
+        // 送信 (音声)
+        //
+        SpeechRecognition = webkitSpeechRecognition || SpeechRecognition;
+        let recognition = new SpeechRecognition();
+        recognition.lang = 'ja-JP';
+        recognition.interimResults = true;
+        recognition.continuous = true;
+        let finalTranscript = '';
+        recognition.onresult = (e) => {
+            let interimTranscript = "";
+            for (let i = e.resultIndex; i < e.results.length; i++) {
+                let transcript = e.results[i][0].transcript;
+                if (e.results[i].isFinal) {
+                    finalTranscript += transcript;
+                } else {
+                    interimTranscript = transcript;
+                }
+            }
+            document.getElementById("textform").value = finalTranscript + interimTranscript
+            if (finalTranscript) {
+                socket.send(finalTranscript)
+                const $textFormValue = document.getElementById("textform").value
+                const nowtime = new Date().toLocaleString({ timeZone: 'Asia/Tokyo' })
+                const prevInManin = document.getElementById("result").innerHTML
+                const insertMain =  `<div class="card"><div class="card-body"><blockquote class="blockquote mb-0"><p>${$textFormValue}</p><footer class="blockquote-footer">${nowtime}</footer></blockquote></div><div class="card-footer"><div class="input-group"><button class="btn btn-outline-light btn-sm delhis" type="button">履歴を消す</button><button class="btn btn-outline-light btn-sm resend" type="button">再送</button></div></div></div>`
+                document.getElementById("result").innerHTML = insertMain + prevInManin
+                console.log("sendToVRChatChatbox>>>  " + $textFormValue)
+                socket.send($textFormValue)
+                document.getElementById("textform").value = ""
+                const bottom = document.getElementById("result").scrollHeight
+                window.scrollTo(0,0)
+                $$delhisbtns = document.getElementsByClassName("delhis")
+                finalTranscript = ""
+            }
+
+        }
+        window.addEventListener("DOMContentLoaded", () => {
+            const $checkboxSingle = document.getElementById("micbtn");
+            $checkboxSingle.addEventListener("change",function(){
+                if (this.checked) {
+                    document.getElementById("micbtnlabel").innerText = "音声認識中…"
+                    recognition.start();
+                } else {
+                    recognition.stop();
+                    document.getElementById("micbtnlabel").innerText = "音声入力"
+                    document.getElementById("textform").value = ""
+                }
+            });
+        });
+    </script>
+</body>
+</html>
