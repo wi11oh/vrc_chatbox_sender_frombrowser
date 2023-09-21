@@ -1,6 +1,6 @@
+import datetime, argparse, socket, sys, time, webbrowser
+
 from websocket_server import WebsocketServer
-from datetime import datetime
-import argparse, socket
 from pythonosc import udp_client
 
 
@@ -15,22 +15,31 @@ client = udp_client.SimpleUDPClient(args.ip, args.port)
 
 
 
-
+runningCrientNum = 0
 # 接続
 def new_client(client, server):
+    global runningCrientNum
+    runningCrientNum += 1
     id, address = client["id"], client["address"]
     print(f"┃ JOIN>>  ID:{id} IP:{address}")
 
 
 # 切断
 def client_left(client, server):
+    global runningCrientNum
+    runningCrientNum -= 1
     id, address = client["id"], client["address"]
     print(f"┃ QUIT>>  ID:{id} IP:{address}")
+    if runningCrientNum == 0:
+        time.sleep(2)
+        if runningCrientNum == 0:
+            server.shutdown()
+            sys.exit(0)
 
 
 # 受信
 def message_received(client_, server, message):
-    nowtime = datetime.now().time().replace(microsecond=0)
+    nowtime = datetime.datetime.now().time().replace(microsecond=0)
     id = client_["id"]
     print(f"┃ MESSAGE_{id}_{nowtime}>>  {message}  ")
     SENDTEXT = (message, True)
@@ -44,7 +53,17 @@ server = WebsocketServer(port=41129, host=socket.gethostbyname(socket.gethostnam
 server.set_fn_new_client(new_client)
 server.set_fn_client_left(client_left)
 server.set_fn_message_received(message_received)
-print("┏>>>>>>>>>server has started! legalnotice(https://github.com/wi11oh/vrc_chatbox_sender_frombrowser/blob/main/ThirdPartyNotices.md)")
-print(f"┃>>>>>>>>>controller_URL : http://wi11oh.com/dev/vcs/vrc_chatbox_sender?localIP={socket.gethostbyname(socket.gethostname())}")
+
+
+webbrowser.open(f"http://wi11oh.com/dev/vcs/vrc_chatbox_sender?localIP={socket.gethostbyname(socket.gethostname())}", new=1, autoraise=True)
+
+
+
+
+print("┏>>>>>>>>>server has started!")
+print(f"┃>>>>>>>>>legal_notice_URL :  https://github.com/wi11oh/vrc_chatbox_sender_frombrowser/blob/main/ThirdPartyNotices.md")
+print(f"┃>>>>>>>>>┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓")
+print(f"┃>>>>>>>>>┃   controller_URL : https://wi11oh.com/dev/vcs/vrc_chatbox_sender?localIP={socket.gethostbyname(socket.gethostname())}    ┃")
+print(f"┃>>>>>>>>>┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛")
 server.run_forever()
 print("┗>>>>>>>>>server has stopped!  created by @UirouMachineVRC(https://twitter.com/UirouMachineVRC)")
