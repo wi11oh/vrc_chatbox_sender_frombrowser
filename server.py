@@ -44,6 +44,6 @@ server = WebsocketServer(port=41129, host=socket.gethostbyname(socket.gethostnam
 server.set_fn_new_client(new_client)
 server.set_fn_client_left(client_left)
 server.set_fn_message_received(message_received)
-print("┏>>>>>>>>>server has started! legalnotice(https://github.com/wi11oh/vrc_chatbox_sender_frombrowser/ThirdPartyNotices.md)")
+print("┏>>>>>>>>>server has started! legalnotice(https://github.com/wi11oh/vrc_chatbox_sender_frombrowser/blob/main/ThirdPartyNotices.md)")
 server.run_forever()
 print("┗>>>>>>>>>server has stopped!  created by @UirouMachineVRC(https://twitter.com/UirouMachineVRC)")
