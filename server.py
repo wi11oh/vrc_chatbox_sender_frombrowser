@@ -1,6 +1,6 @@
 from websocket_server import WebsocketServer
 from datetime import datetime
-import argparse
+import argparse, socket
 from pythonosc import udp_client
 
 
@@ -8,7 +8,7 @@ from pythonosc import udp_client
 
 # OSC周りの宣言
 parser = argparse.ArgumentParser()
-parser.add_argument("--ip", default="192.168.0.10")
+parser.add_argument("--ip", default=socket.gethostbyname(socket.gethostname()))
 parser.add_argument("--port", type=int, default=9000)
 args = parser.parse_args()
 client = udp_client.SimpleUDPClient(args.ip, args.port)
@@ -39,7 +39,7 @@ def message_received(client_, server, message):
 
 
 
-server = WebsocketServer(port=41129, host='192.168.0.10')
+server = WebsocketServer(port=41129, host=socket.gethostbyname(socket.gethostname()))
 
 server.set_fn_new_client(new_client)
 server.set_fn_client_left(client_left)
