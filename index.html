@@ -69,8 +69,8 @@
             <div class="card">
                 <div class="card-body">
                     <blockquote class="blockquote mb-0">
-                        <p>使用するには別途 <a href="" download>これ</a> を実行している必要があります</p>
-                        <footer class="blockquote-footer">↑クリックするとダウンロードされます
+                        <p>使用するには別途 <a href="https://github.com/wi11oh/vrc_chatbox_sender_frombrowser/releases" target="_blank" rel="noopener noreferrer">これ</a> を実行している必要があります</p>
+                        <footer class="blockquote-footer">↑クリックするとダウンロードページに飛びます
                         </footer>
                     </blockquote>
                 </div>
@@ -135,6 +135,30 @@
         console.log(params.get("localIP"))
         console.log("あああああああああああああああああ！！！！！！助けて！！！！！！！！！！！")
         const socket = new WebSocket(`ws://${params.get("localIP")}:41129`)
+
+
+        // socket.onclose = function(event) {
+        //     if (event.wasClean) {
+        //         console.log('WebSocket connection closed cleanly, code=' + event.code + ' reason=' + event.reason);
+        //     } else {
+        //         console.error('WebSocket connection died (B)');
+        //     }
+        // };
+
+
+
+        
+
+        socket.onerror = (e) => {
+            const nowtime = new Date().toLocaleString({ timeZone: 'Asia/Tokyo' })
+            const prevInManin = document.getElementById("result").innerHTML
+            const insertMain =  `<div class="card bg-danger"><div class="card-body"><blockquote class="blockquote mb-0"><p>vcs-server.exeとの通信に失敗しました</p><footer class="blockquote-footer">${nowtime}</footer></blockquote></div><div class="card-footer"><div class="input-group"><button class="btn btn-outline-light btn-sm delhis" type="button" disabled>履歴を消す</button><button class="btn btn-outline-light btn-sm resend" type="button" disabled>再送</button></div></div></div>`
+            console.log(e)
+            document.getElementById("result").innerHTML = insertMain + prevInManin
+        }
+
+
+        
         //
         // 受信
         //
