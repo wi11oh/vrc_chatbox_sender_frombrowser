@@ -2,7 +2,7 @@
 vrcのチャットボックスにブラウザからOSCでチャット送るやつ
 責任はとらん
 
-# demoのURL
+## demoのURL
 
 http://wi11oh.com/dev/vcs/vrc_chatbox_sender?localIP= vcs_server.exeを動かしてるPCのローカルIP
 
@@ -10,5 +10,5 @@ http://wi11oh.com/dev/vcs/vrc_chatbox_sender?localIP= vcs_server.exeを動かし
 
 WSS化がまだなので chrome://flags/#unsafely-treat-insecure-origin-as-secure (リンク判定されないのでアドレス欄にコピペ) で http://wi11oh.com を追加後 Enabled をしないと連続音声認識機能が使えません誰か書いて
 
-# vcs_server.exe
+## vcs_server.exe
 ここ https://github.com/wi11oh/vrc_chatbox_sender_frombrowser/releases
